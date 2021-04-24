@@ -1,9 +1,14 @@
 package com.tgilonis.ipldashboard.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
+@Entity
 public class Match
 {
+    //JPA by default maps camel case to underscores, so must make to match this naming when inserting data into the table
+    @Id
     private long id;
     private String city;
     private LocalDate date;
