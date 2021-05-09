@@ -1,13 +1,15 @@
 package com.tgilonis.ipldashboard.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Team
 {
+    // gives JPA a default contructor to use
+    public Team()
+    {}
+
     @Id
     //ask JPA to create own ID for the table
     @GeneratedValue(strategy =  GenerationType.AUTO)
@@ -15,6 +17,11 @@ public class Team
     private String teamName;
     private long totalMatches;
     private long totalWins;
+
+    @Transient // tells JPA to ignore this field - i.e. we do not want to persist it as a data entry into the db
+    private List<Match> matches;
+    // transient field used just to pass information for a purpose without adding it to the db
+
 
     public Team(
             String teamName,
@@ -72,5 +79,15 @@ public class Team
                 ", totalMatches=" + totalMatches +
                 ", totalWins=" + totalWins +
                 '}';
+    }
+
+    public List<Match> getMatches()
+    {
+        return matches;
+    }
+
+    public void setMatches(List<Match> matches)
+    {
+        this.matches = matches;
     }
 }
